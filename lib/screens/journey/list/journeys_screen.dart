@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dev/models/dtos/journey.dart';
-import 'package:dev/screens/journey/journey_card.dart';
+import 'package:dev/screens/journey/list/journey_card.dart';
 import 'package:dev/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 

@@ -24,6 +24,7 @@ class _EcoDockState extends State<EcoDock> with SingleTickerProviderStateMixin {
       child: BottomNavigationBar(
             selectedItemColor: Colors.green,
             unselectedItemColor: Colors.black26,
+            selectedLabelStyle: TextStyle(decorationColor: Colors.black, fontWeight: FontWeight.bold),
             currentIndex: _currentStateIndex,
             onTap: (index) {
               Provider.of<AppState>(context, listen: false)
@@ -32,7 +33,7 @@ class _EcoDockState extends State<EcoDock> with SingleTickerProviderStateMixin {
                 _currentStateIndex = index;
               });
             },
-            type: BottomNavigationBarType.fixed,
+            type: BottomNavigationBarType.shifting,
             items: _buildItems(),
           ),
     );
@@ -42,7 +43,7 @@ class _EcoDockState extends State<EcoDock> with SingleTickerProviderStateMixin {
     return _menuStates
         .map((e) => BottomNavigationBarItem(
               icon: Icon(e.icon),
-              title: Text(e.title),
+              label: e.title,
             ))
         .toList();
   }

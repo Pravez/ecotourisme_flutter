@@ -43,9 +43,10 @@ class _JourneyCardState extends State<JourneyCard> with SingleTickerProviderStat
       topRight: Radius.circular(20.0),
       bottomLeft: Radius.circular(20.0),
     );
-    return Listener(
-      onPointerDown: (_) => controller.forward(),
-      onPointerUp: (_) => controller.reverse(),
+    return GestureDetector(
+      onTapDown: (_) => controller.forward(),
+      onTapUp: (_) => controller.reverse(),
+      onTap: () => Navigator.of(context).pushNamed('/details', arguments: widget.journey),
       child: Transform.scale(
         scale: 1 - animation.value,
         child: Card(

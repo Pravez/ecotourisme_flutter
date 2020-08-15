@@ -1,5 +1,5 @@
 import 'package:dev/models/app_state.dart';
-import 'package:dev/screens/journey/journeys_screen.dart';
+import 'package:dev/screens/journey/list/journeys_screen.dart';
 import 'package:dev/screens/map_screen.dart';
 import 'package:dev/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
