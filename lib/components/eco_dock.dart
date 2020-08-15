@@ -11,9 +11,9 @@ class EcoDock extends StatefulWidget {
 
 class _EcoDockState extends State<EcoDock> with SingleTickerProviderStateMixin {
   final _menuStates = [
-    StateItem(MenuState.JOURNEYS, "Journeys", Icons.list),
-    StateItem(MenuState.MAP, "Map", Icons.map),
-    StateItem(MenuState.PROFILE, "Profile", Icons.person)
+    StateItem(MenuState.JOURNEYS, "Liste", Icons.list),
+    StateItem(MenuState.MAP, "Carte", Icons.map),
+    StateItem(MenuState.PROFILE, "Profil", Icons.person)
   ];
   int _currentStateIndex = 0;
 
