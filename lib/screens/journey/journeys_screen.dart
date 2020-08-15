@@ -4,6 +4,8 @@ import 'package:dev/screens/journey/journey_card.dart';
 import 'package:dev/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 
+import 'shimmer_card.dart';
+
 class JourneysScreen extends StatefulWidget {
   JourneysScreen({Key key}) : super(key: key);
 
@@ -26,8 +28,16 @@ class _JourneysScreenState extends State<JourneysScreen> {
             child: Text("An error occured !"),
           );
         } else {
-          return Center(
-            child: CircularProgressIndicator(),
+          return Container(
+            child: SizedBox.expand(
+              child: ListView(
+                children: [
+                  ShimmerCard(),
+                  ShimmerCard(),
+                  ShimmerCard(),
+                ],
+              ),
+            ),
           );
         }
       },
@@ -35,7 +45,7 @@ class _JourneysScreenState extends State<JourneysScreen> {
   }
 
   _build(List<Journey> journeys) {
-    return Center(
+    return Container(
       child: ListView.builder(
         itemCount: journeys.length,
         itemBuilder: (ctx, i) => JourneyCard(journey: journeys[i]),
