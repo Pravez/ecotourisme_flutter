@@ -22,33 +22,34 @@ class _JourneysScreenState extends State<JourneysScreen> {
       future: FirestoreService.getJourneys(),
       builder: (ctx, snapshot) {
         if (snapshot.hasData) {
-          return _build(snapshot.data);
+          return _buildSuccess(snapshot.data);
         } else if (snapshot.hasError) {
           return Center(
             child: Text("An error occured !"),
           );
         } else {
-          return Container(
-            child: SizedBox.expand(
-              child: ListView(
-                children: [
-                  ShimmerCard(),
-                  ShimmerCard(),
-                  ShimmerCard(),
-                ],
-              ),
-            ),
-          );
+          return _buildLoading();
         }
       },
     );
   }
 
-  _build(List<Journey> journeys) {
+  _buildSuccess(List<Journey> journeys) {
     return Container(
       child: ListView.builder(
         itemCount: journeys.length,
         itemBuilder: (ctx, i) => JourneyCard(journey: journeys[i]),
+      ),
+    );
+  }
+
+  _buildLoading() {
+    return Container(
+      child: SizedBox.expand(
+        child: ListView(
+          physics: NeverScrollableScrollPhysics(),
+          children: List.generate(3, (_) => ShimmerCard()),
+        ),
       ),
     );
   }

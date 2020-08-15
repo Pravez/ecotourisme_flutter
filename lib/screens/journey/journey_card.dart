@@ -1,13 +1,16 @@
+import 'dart:ui';
+
 import 'package:dev/components/labelled_icon.dart';
 import 'package:dev/components/rounded_text_box.dart';
 import 'package:dev/models/dtos/journey.dart';
 import 'package:dev/models/dtos/picture.dart';
-import 'package:flutter/material.dart';
 import 'package:dev/utils/extensions.dart';
+import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class JourneyCard extends StatefulWidget {
   final Journey journey;
+
   JourneyCard({Key key, this.journey}) : super(key: key);
 
   @override
@@ -21,11 +24,16 @@ class _JourneyCardState extends State<JourneyCard> with SingleTickerProviderStat
   @override
   void initState() {
     controller = AnimationController(
-        duration: Duration(milliseconds: 75), vsync: this, lowerBound: 0, upperBound: 0.05, );
-    animation = CurvedAnimation(parent: controller, curve: Curves.bounceOut, reverseCurve: Curves.bounceIn)
-      ..addListener(() {
-        setState(() {});
-      });
+      duration: Duration(milliseconds: 75),
+      vsync: this,
+      lowerBound: 0,
+      upperBound: 0.05,
+    );
+    animation =
+        CurvedAnimation(parent: controller, curve: Curves.bounceOut, reverseCurve: Curves.bounceIn)
+          ..addListener(() {
+            setState(() {});
+          });
     super.initState();
   }
 
@@ -52,30 +60,39 @@ class _JourneyCardState extends State<JourneyCard> with SingleTickerProviderStat
           elevation: 20,
         ),
       ),
-    );;
+    );
+    ;
   }
 
-
   _buildCardContent(Journey item) {
-    return Column(
-      children: [
-        Container(
-          height: 129,
-          child: Stack(
-            children: [
-              SizedBox.expand(
-                  child: _buildImage(item.pictures.length > 0 ? item.pictures[0] : null)),
-              SizedBox.expand(child: _buildImageDesc(item))
-            ],
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 129,
+            child: Stack(
+              children: [
+                SizedBox.expand(
+                    child: _buildImage(item.pictures.length > 0 ? item.pictures[0] : null)),
+                SizedBox.expand(child: _buildImageDesc(item))
+              ],
+            ),
           ),
-        ),
-        Container(
-          child: Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Text(item.title.fr),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20.0, 15.0, 26.0, 21.0),
+            child: Text(item.title.fr,
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800, letterSpacing: -0.21)),
           ),
-        )
-      ],
+          item.sideActivities.length > 0
+              ? Padding(
+                  padding: EdgeInsets.fromLTRB(20, 0.0, 26, 22),
+                  child: _buildActivities(item),
+                )
+              : Container()
+        ],
+      ),
     );
   }
 
@@ -142,6 +159,31 @@ class _JourneyCardState extends State<JourneyCard> with SingleTickerProviderStat
     );
   }
 
+  _buildActivities(Journey item) {
+    final background = Color.fromRGBO(71, 180, 255, 0.14);
+    return Row(
+      children: item.sideActivities
+          .map((e) => Container(
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,
+                      colors: [background, background, Colors.white, Colors.white],
+                      stops: [0.0, 0.5, 0.5, 1.0]
+                    ),),
+                child: Icon(
+                  Icons.restaurant,
+                  color: Color.fromRGBO(71, 180, 255, 1.0),
+                  size: 18,
+                ),
+              ))
+          .toList(),
+    );
+  }
+
   _getCategoryColor(String category) {
     switch (category) {
       case "nature":
@@ -150,6 +192,16 @@ class _JourneyCardState extends State<JourneyCard> with SingleTickerProviderStat
         return Color.fromARGB(255, 255, 196, 38);
       case "water":
         return Color.fromARGB(255, 60, 146, 230);
+    }
+  }
+
+  _getSideActivityIcon(String activity) {
+    switch (activity) {
+      case 'restaurant':
+        return Icon(
+          Icons.restaurant,
+          color: Colors.green,
+        );
     }
   }
 }
