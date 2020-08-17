@@ -6,6 +6,7 @@ import 'package:dev/models/dtos/journey.dart';
 import 'package:dev/models/dtos/picture.dart';
 import 'package:dev/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class JourneyCard extends StatefulWidget {
@@ -58,7 +59,7 @@ class _JourneyCardState extends State<JourneyCard> with SingleTickerProviderStat
             borderRadius: borderRadius,
             child: _buildCardContent(widget.journey),
           ),
-          elevation: 20,
+          elevation: 35,
         ),
       ),
     );
@@ -104,11 +105,7 @@ class _JourneyCardState extends State<JourneyCard> with SingleTickerProviderStat
         fit: BoxFit.cover,
       );
     } else {
-      return FadeInImage.memoryNetwork(
-        placeholder: kTransparentImage,
-        image: image.src,
-        fit: BoxFit.cover,
-      );
+      return BlurHash(hash: image.blurhash, image: image.src,);
     }
   }
 

@@ -19,7 +19,7 @@ dependencies:
   shimmer: ^1.1.1
   flutter_svg: ^0.18.0
   flutter_map: ^0.10.1+1
-
+  carousel_slider: ^2.2.1
 
   cupertino_icons: ^0.1.3
 

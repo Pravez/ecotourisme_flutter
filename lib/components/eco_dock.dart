@@ -19,23 +19,31 @@ class _EcoDockState extends State<EcoDock> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 75,
-      child: BottomNavigationBar(
-            selectedItemColor: Colors.green,
-            unselectedItemColor: Colors.black26,
-            selectedLabelStyle: TextStyle(decorationColor: Colors.black, fontWeight: FontWeight.bold),
-            currentIndex: _currentStateIndex,
-            onTap: (index) {
-              Provider.of<AppState>(context, listen: false)
-                  .changeState(_menuStates[index].state);
-              this.setState(() {
-                _currentStateIndex = index;
-              });
-            },
-            type: BottomNavigationBarType.shifting,
-            items: _buildItems(),
-          ),
+    return ClipRRect(
+      borderRadius: BorderRadius.only(topLeft: Radius.circular(26.5), topRight: Radius.circular(26.5)),
+      child: Container(
+        height: 75,
+        child: BottomNavigationBar(
+          selectedItemColor: Colors.black,
+          selectedLabelStyle: TextStyle(
+              decorationColor: Colors.black, fontWeight: FontWeight.bold),
+          unselectedLabelStyle: TextStyle(
+              decorationColor: Colors.black.withOpacity(0.4),
+              fontWeight: FontWeight.w600),
+          selectedIconTheme: IconThemeData(color: Color(0xFF76d798)),
+          unselectedIconTheme: IconThemeData(color: Color(0XFFDCDCDC)),
+          currentIndex: _currentStateIndex,
+          onTap: (index) {
+            Provider.of<AppState>(context, listen: false)
+                .changeState(_menuStates[index].state);
+            this.setState(() {
+              _currentStateIndex = index;
+            });
+          },
+          type: BottomNavigationBarType.shifting,
+          items: _buildItems(),
+        ),
+      ),
     );
   }
 
