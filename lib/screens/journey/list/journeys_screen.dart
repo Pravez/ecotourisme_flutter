@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dev/models/dtos/journey.dart';
 import 'package:dev/screens/journey/list/journey_card.dart';
 import 'package:dev/services/firestore_service.dart';
@@ -14,8 +13,6 @@ class JourneysScreen extends StatefulWidget {
 }
 
 class _JourneysScreenState extends State<JourneysScreen> {
-  final firestore = Firestore.instance;
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Journey>>(
@@ -24,6 +21,7 @@ class _JourneysScreenState extends State<JourneysScreen> {
         if (snapshot.hasData) {
           return _buildSuccess(snapshot.data);
         } else if (snapshot.hasError) {
+          print(snapshot.error);
           return Center(
             child: Text("An error occured !"),
           );
